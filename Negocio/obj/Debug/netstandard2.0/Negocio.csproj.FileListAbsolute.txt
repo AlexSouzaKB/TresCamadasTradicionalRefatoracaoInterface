@@ -1,0 +1,12 @@
+C:\Users\Alex\Documents\Aula CSharp\TresCamadas\ConsoleApp\Negocio\obj\Debug\netstandard2.0\Negocio.csprojAssemblyReference.cache
+C:\Users\Alex\Documents\Aula CSharp\TresCamadas\ConsoleApp\Negocio\obj\Debug\netstandard2.0\Negocio.AssemblyInfoInputs.cache
+C:\Users\Alex\Documents\Aula CSharp\TresCamadas\ConsoleApp\Negocio\obj\Debug\netstandard2.0\Negocio.AssemblyInfo.cs
+C:\Users\Alex\Documents\Aula CSharp\TresCamadas\ConsoleApp\Negocio\obj\Debug\netstandard2.0\Negocio.csproj.CoreCompileInputs.cache
+C:\Users\Alex\Documents\Aula CSharp\TresCamadas\ConsoleApp\Negocio\bin\Debug\netstandard2.0\Negocio.deps.json
+C:\Users\Alex\Documents\Aula CSharp\TresCamadas\ConsoleApp\Negocio\bin\Debug\netstandard2.0\Negocio.dll
+C:\Users\Alex\Documents\Aula CSharp\TresCamadas\ConsoleApp\Negocio\bin\Debug\netstandard2.0\Negocio.pdb
+C:\Users\Alex\Documents\Aula CSharp\TresCamadas\ConsoleApp\Negocio\bin\Debug\netstandard2.0\DataBase.dll
+C:\Users\Alex\Documents\Aula CSharp\TresCamadas\ConsoleApp\Negocio\bin\Debug\netstandard2.0\DataBase.pdb
+C:\Users\Alex\Documents\Aula CSharp\TresCamadas\ConsoleApp\Negocio\obj\Debug\netstandard2.0\Negocio.csproj.CopyComplete
+C:\Users\Alex\Documents\Aula CSharp\TresCamadas\ConsoleApp\Negocio\obj\Debug\netstandard2.0\Negocio.dll
+C:\Users\Alex\Documents\Aula CSharp\TresCamadas\ConsoleApp\Negocio\obj\Debug\netstandard2.0\Negocio.pdb
