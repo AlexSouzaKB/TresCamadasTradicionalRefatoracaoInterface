@@ -12,6 +12,8 @@ namespace Negocio
         [Colum(PrimaryKey = true)]
         public int Id { get; set; }
         public string Nome { get; set; }
+
+        [Colum(Name = "cpf")]
         public string CPF { get; set; }
 
         [Colum(IsNotOnDataBase = true)]

@@ -48,7 +48,8 @@ namespace DataBase
                         if (p.GetValue(iCliente) == null) continue;
                         if (columAttribute != null && (columAttribute.PrimaryKey || columAttribute.IsNotOnDataBase)) continue;
 
-                        colunas.Add(p.Name);
+                        string nomeColunaTabela = columAttribute != null && !string.IsNullOrEmpty(columAttribute.Name) ? columAttribute.Name : p.Name;
+                        colunas.Add(nomeColunaTabela);
                         valores.Add(p.GetValue(iCliente));
                     }
 
