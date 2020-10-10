@@ -6,24 +6,17 @@ using DataBase;
 
 namespace Negocio
 {
-    [Table(Name = "Clientes")]
-    public class Cliente : DataBase.ADb
+    [Table(Name = "Fonecedores")]
+    public class Fornecedor : DataBase.ADb
     {
         [Colum(PrimaryKey = true)]
         public int Id { get; set; }
-        [Validation(Presence = true)]
-        public string Nome { get; set; }
 
-        [Colum(Name = "cpf")]
-        public string CPF { get; set; }
+        public string Nome { get; set; }
+        
+        public string CNPJ { get; set; }
 
         [Colum(IsNotOnDataBase = true)]
         public string CEP { get; set; }
-
-        public bool Valido()
-        {
-            return true;
-        }
-
     }
 }

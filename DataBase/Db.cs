@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Reflection;
 
 namespace DataBase
 {
-    public class Cliente
+    public class Db
     {
         private const string STRING_CNN = @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=TresCamadas;Data Source=DESKTOP-UQ8D1SH\SQLEXPRESS";
 
-        public DataTable Todos()
+        public List<ADb> Todos(ADb aDb)
         {
-            string queryString ="SELECT * FROM Clientes;";
+            TableAttribute tableAttribute = aDb.GetType().GetCustomAttribute<TableAttribute>();
+            string nomeTabela = tableAttribute != null && !string.IsNullOrEmpty(tableAttribute.Name) ? tableAttribute.Name : iCliente.GetType().Name;
+            string queryString = $"SELECT * FROM {nomeTabela};";
 
             using (SqlConnection connection =
                        new SqlConnection(STRING_CNN))
@@ -22,35 +23,49 @@ namespace DataBase
                     new SqlCommand(queryString, connection);
                 connection.Open();
 
-                DataTable dataTable = new DataTable();
+                var adbs = new List<ADb>();
 
-                SqlDataAdapter da = new SqlDataAdapter(command);
-                da.Fill(dataTable);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+
+                    var newAbb = (ADb)Activator.CreateInstance(aDb.GetType());
+                    foreach (var p in aDb.GetType().GetProperties())
+                    {
+                        ColumAttribute columAttribute = p.GetCustomAttribute<ColumAttribute>();
+                        if (columAttribute != null && columAttribute.IsNotOnDataBase) continue;
+
+                        string nomeColunaTabela = columAttribute != null && !string.IsNullOrEmpty(columAttribute.Name) ? columAttribute.Name : p.Name;
+                        p.SetValue(aDb, reader[nomeColunaTabela]);
+                    }
+
+                    adbs.Add(newAbb);
+                }
+
+                reader.Close();
                 connection.Close();
-                da.Dispose();
 
-                return dataTable;
+                return adbs;
             }
         }
 
-        public void Salvar(ICliente iCliente)
+        public void Salvar(ADb aDb)
         {
-            using (SqlConnection connection =
-                       new SqlConnection(STRING_CNN))
+            using (SqlConnection connection = new SqlConnection(STRING_CNN))
             {
                 try
                 {
                     var colunas = new List<string>();
                     var valores = new List<object>();
-                    foreach (var p in iCliente.GetType().GetProperties())
+                    foreach (var p in aDb.GetType().GetProperties())
                     {
                         ColumAttribute columAttribute = p.GetCustomAttribute<ColumAttribute>();
-                        if (p.GetValue(iCliente) == null) continue;
+                        if (p.GetValue(aDb) == null) continue;
                         if (columAttribute != null && (columAttribute.PrimaryKey || columAttribute.IsNotOnDataBase)) continue;
 
                         string nomeColunaTabela = columAttribute != null && !string.IsNullOrEmpty(columAttribute.Name) ? columAttribute.Name : p.Name;
                         colunas.Add(nomeColunaTabela);
-                        valores.Add(p.GetValue(iCliente));
+                        valores.Add(p.GetValue(aDb));
                     }
 
                     var parans = new List<string>();
@@ -60,7 +75,11 @@ namespace DataBase
                     }
                     string parametros = string.Join(",", parans.ToArray());
                     string colunasJoin = string.Join(",", colunas.ToArray());
-                    string queryString = $"insert into clientes ({colunasJoin} values(${parametros})";
+
+                    TableAttribute tableAttribute = aDb.GetType().GetCustomAttribute<TableAttribute>();
+                    string nomeTabela = tableAttribute != null && !string.IsNullOrEmpty(tableAttribute.Name) ? tableAttribute.Name : iCliente.GetType().Name;
+
+                    string queryString = $"insert into {nomeTabela} ({colunasJoin} values(${parametros})";
 
                     SqlCommand command = new SqlCommand(queryString, connection);
                     command.CommandType = CommandType.Text;
