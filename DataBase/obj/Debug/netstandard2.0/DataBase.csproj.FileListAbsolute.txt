@@ -1,9 +1,0 @@
-C:\Users\Alex\Documents\Aula CSharp\TresCamadas\ConsoleApp\DataBase\bin\Debug\netstandard2.0\DataBase.deps.json
-C:\Users\Alex\Documents\Aula CSharp\TresCamadas\ConsoleApp\DataBase\bin\Debug\netstandard2.0\DataBase.dll
-C:\Users\Alex\Documents\Aula CSharp\TresCamadas\ConsoleApp\DataBase\obj\Debug\netstandard2.0\DataBase.csprojAssemblyReference.cache
-C:\Users\Alex\Documents\Aula CSharp\TresCamadas\ConsoleApp\DataBase\obj\Debug\netstandard2.0\DataBase.AssemblyInfoInputs.cache
-C:\Users\Alex\Documents\Aula CSharp\TresCamadas\ConsoleApp\DataBase\obj\Debug\netstandard2.0\DataBase.AssemblyInfo.cs
-C:\Users\Alex\Documents\Aula CSharp\TresCamadas\ConsoleApp\DataBase\obj\Debug\netstandard2.0\DataBase.csproj.CoreCompileInputs.cache
-C:\Users\Alex\Documents\Aula CSharp\TresCamadas\ConsoleApp\DataBase\bin\Debug\netstandard2.0\DataBase.pdb
-C:\Users\Alex\Documents\Aula CSharp\TresCamadas\ConsoleApp\DataBase\obj\Debug\netstandard2.0\DataBase.dll
-C:\Users\Alex\Documents\Aula CSharp\TresCamadas\ConsoleApp\DataBase\obj\Debug\netstandard2.0\DataBase.pdb

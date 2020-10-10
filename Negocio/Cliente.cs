@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Security.Cryptography.X509Certificates;
+using DataBase;
 
 namespace Negocio
 {
-    public class Cliente
+    //[Table(Name = "tbCliente")]
+    public class Cliente : DataBase.ICliente
     {
+        [Colum(PrimaryKey = true)]
         public int Id { get; set; }
         public string Nome { get; set; }
         public string CPF { get; set; }
+
+        [Colum(IsNotOnDataBase = true)]
+        public string CEP { get; set; }
 
         public bool Valido()
         {
@@ -28,7 +34,7 @@ namespace Negocio
                 throw new ClienteError("CPF é obrigatório");
             }
 
-            this.Id = new DataBase.Cliente().Salvar(this.Id, this.Nome, this.CPF);
+            new DataBase.Cliente().Salvar(this);
         }
            
         public List<Cliente> Todos()

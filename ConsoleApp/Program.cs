@@ -9,7 +9,7 @@ namespace ConsoleApp
         {
             try
             {
-                new Cliente().Salvar();
+                new Cliente() { Nome="Lana", CPF = "222.333.444-33"}.Salvar();
             }
             catch(ClienteError erro)
             {
