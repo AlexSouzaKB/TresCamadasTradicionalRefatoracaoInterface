@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Reflection;
 
 namespace DataBase
@@ -38,21 +40,36 @@ namespace DataBase
             {
                 try
                 {
-                    string queryString = "insert into clientes (nome, cpf) values(@Nome, @CPF)";
-
-                    // transation 
-                    SqlCommand command = new SqlCommand(queryString, connection);
-                    command.CommandType = CommandType.Text;
-
+                    var colunas = new List<string>();
+                    var valores = new List<object>();
                     foreach (var p in iCliente.GetType().GetProperties())
                     {
                         ColumAttribute columAttribute = p.GetCustomAttribute<ColumAttribute>();
                         if (p.GetValue(iCliente) == null) continue;
                         if (columAttribute != null && (columAttribute.PrimaryKey || columAttribute.IsNotOnDataBase)) continue;
 
-                        var value = p.GetValue(iCliente);
-                        command.Parameters.Add($"@{p.Name}", GetDbType(value));
-                        command.Parameters[$"@{p.Name}"].Value = value;
+                        colunas.Add(p.Name);
+                        valores.Add(p.GetValue(iCliente));
+                    }
+
+                    var parans = new List<string>();
+                    foreach(var coluna in colunas)
+                    {
+                        parans.Add($"@{coluna}");
+                    }
+                    string parametros = string.Join(",", parans.ToArray());
+                    string colunasJoin = string.Join(",", colunas.ToArray());
+                    string queryString = $"insert into clientes ({colunasJoin} values(${parametros})";
+
+                    SqlCommand command = new SqlCommand(queryString, connection);
+                    command.CommandType = CommandType.Text;
+
+                    for (var i=0; i<colunas.Count; i++)
+                    {
+                        var nomeColuna = colunas[i];
+                        var valorColuna = valores[i];
+                        command.Parameters.Add($"@{nomeColuna}", GetDbType(valorColuna));
+                        command.Parameters[$"@{nomeColuna}"].Value = valorColuna;
                     }
 
                     connection.Open();
